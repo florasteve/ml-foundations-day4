@@ -58,3 +58,7 @@ PYTHONPATH=src python examples/logreg_surface.py
 ### Rosenbrock Function Paths
 ![Rosenbrock (GD)](figures/rosenbrock_gd_lr0.001.png)
 ![Rosenbrock (Momentum)](figures/rosenbrock_momentum_lr0.002beta0.9.png)
+
+### Rosenbrock Animated Paths
+![Rosenbrock (GD)](figures/rosenbrock_gd.gif)
+![Rosenbrock (Momentum)](figures/rosenbrock_momentum.gif)
