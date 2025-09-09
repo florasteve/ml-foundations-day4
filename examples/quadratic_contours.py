@@ -1,8 +1,3 @@
-import sys, pathlib
-# Add the repo root so "from mfd4.gradient_descent ..." works regardless of CWD
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
-import sys, pathlib
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 import numpy as np
 import matplotlib.pyplot as plt
 from mfd4.gradient_descent import gd, quadratic
@@ -17,23 +12,21 @@ XX, YY = np.meshgrid(xs, ys)
 ZZ = (XX - 2.0)**2 + (0.5*YY + 1.0)**2
 
 # Run GD
-x_star, path, losses = gd(f, grad, x0=[-3, 3], lr=0.3, steps=200)
+_, path, losses = gd(f, grad, x0=[-3, 3], lr=0.3, steps=200)
 
 # Plot contour + path
 plt.figure()
-cs = plt.contour(XX, YY, ZZ, levels=30)
+plt.contour(XX, YY, ZZ, levels=30)
 plt.plot(path[:, 0], path[:, 1], marker='o', linewidth=1)
 plt.title("Gradient Descent Path on Quadratic Loss")
-plt.xlabel("x")
-plt.ylabel("y")
+plt.xlabel("x"); plt.ylabel("y")
 plt.savefig("figures/quadratic_gd_path.png", dpi=160, bbox_inches="tight")
-plt.show()
+plt.close()
 
 # Loss vs iteration
 plt.figure()
 plt.plot(losses)
 plt.title("Loss vs Iteration (Quadratic)")
-plt.xlabel("iteration")
-plt.ylabel("loss")
+plt.xlabel("iteration"); plt.ylabel("loss")
 plt.savefig("figures/quadratic_gd_loss.png", dpi=160, bbox_inches="tight")
-plt.show()
+plt.close()
