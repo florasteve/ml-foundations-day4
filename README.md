@@ -51,3 +51,10 @@ PYTHONPATH=src python examples/logreg_surface.py
 
 ### GD Path on Logistic Loss
 ![Logistic GD Path](figures/logreg_gd_path.png)
+
+### Momentum vs Vanilla GD
+![Momentum vs GD](figures/momentum_vs_gd.png)
+
+### Rosenbrock Function Paths
+![Rosenbrock (GD)](figures/rosenbrock_gd_lr0.001.png)
+![Rosenbrock (Momentum)](figures/rosenbrock_momentum_lr0.002beta0.9.png)
