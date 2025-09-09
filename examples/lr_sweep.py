@@ -1,9 +1,9 @@
 import sys, pathlib
-# Add the repo root so "from src.gradient_descent ..." works regardless of CWD
+# Add the repo root so "from mfd4.gradient_descent ..." works regardless of CWD
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 import numpy as np
 import matplotlib.pyplot as plt
-from src.gradient_descent import gd, quadratic
+from mfd4.gradient_descent import gd, quadratic
 
 f, grad = quadratic(a=1.0, b=2.0, c=0.5, d=-1.0)
 
