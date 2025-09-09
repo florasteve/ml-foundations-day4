@@ -45,12 +45,12 @@ for i in range(W1.shape[0]):
         b_star = newton_opt_b(w1, w2, b0=0.0, iters=25)
         ZZ[i, j] = f(np.array([w1, w2, b_star], dtype=float))
 
-# Sanity: replace any NaNs/Infs; print range
+# Replace any NaNs/Infs; print range
 ZZ = np.nan_to_num(ZZ, posinf=np.finfo(float).max/10, neginf=0.0)
 zmin, zmax = float(np.min(ZZ)), float(np.max(ZZ))
 print(f"logreg surface range: min={zmin:.4f}, max={zmax:.4f}")
 
-# === Figure 1: FILLED contours ONLY (no isoline rings) ===
+# === Figure 1: FILLED contours ONLY (no rings) ===
 plt.figure(figsize=(7, 6))
 cf = plt.contourf(W1, W2, ZZ, levels=30, cmap="viridis")
 plt.colorbar(cf, shrink=0.85, label="loss")
@@ -60,17 +60,18 @@ plt.xlabel("w1"); plt.ylabel("w2")
 plt.savefig("figures/logreg_surface.png", dpi=160, bbox_inches="tight", pad_inches=0.2)
 plt.show()
 
-# === Figure 2: GD path projected on w1-w2 (keep thin contour lines here for context) ===
+# === Figure 2: colored background + GD path overlay ===
 x0 = np.array([0.0, 0.0, 0.0])
 _, path, _ = gd(f, grad, x0=x0, lr=0.5, steps=200)
+
 plt.figure(figsize=(7, 6))
-try:
-    cs = plt.contour(W1, W2, ZZ, levels=30, colors="k", linewidths=0.5, alpha=0.6)
-except Exception:
-    cs = plt.contour(W1, W2, ZZ, levels=5, colors="k", linewidths=0.5, alpha=0.6)
-plt.plot(path[:,0], path[:,1], marker='o', linewidth=1)
+# bring back color as filled contours
+cf2 = plt.contourf(W1, W2, ZZ, levels=30, cmap="viridis")
+# plot path with a light line for contrast
+plt.plot(path[:,0], path[:,1], color="w", linewidth=2)
+plt.plot(path[:,0], path[:,1], color="k", linewidth=0.8)
 plt.gca().set_aspect("equal", adjustable="box")
-plt.title("GD Path on Logistic Loss (projected onto w1-w2)")
+plt.title("GD Path on Logistic Loss (projected onto w1–w2)")
 plt.xlabel("w1"); plt.ylabel("w2")
 plt.savefig("figures/logreg_gd_path.png", dpi=160, bbox_inches="tight", pad_inches=0.2)
 plt.show()
