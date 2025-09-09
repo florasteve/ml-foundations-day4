@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mfd4"
+version = "0.1.0"
+description = "ML Foundations — Day 4: Gradient Descent demos"
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["src"]
