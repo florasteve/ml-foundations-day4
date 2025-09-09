@@ -12,15 +12,18 @@ XX, YY = np.meshgrid(xs, ys)
 ZZ = (XX - 2.0)**2 + (0.5*YY + 1.0)**2
 
 # Paths
-_, path_gd, _  = gd(f, grad, x0=[-3, 3], lr=0.25, steps=120)
-_, path_mo, _  = gd_momentum(f, grad, x0=[-3, 3], lr=0.25, beta=0.9, steps=120)
+_, path_gd, _ = gd(f, grad, x0=[-3, 3], lr=0.25, steps=120)
+_, path_mo, _ = gd_momentum(f, grad, x0=[-3, 3], lr=0.25, beta=0.9, steps=120)
 
-# Plot + save (headless-friendly)
-plt.figure()
+# Plot + save (square + equal aspect)
+plt.figure(figsize=(6, 6))
 plt.contour(XX, YY, ZZ, levels=30)
 plt.plot(path_gd[:,0], path_gd[:,1], marker='o', linewidth=1, label="GD")
 plt.plot(path_mo[:,0], path_mo[:,1], marker='o', linewidth=1, label="Momentum")
+plt.xlim(xs.min(), xs.max()); plt.ylim(ys.min(), ys.max())
+plt.gca().set_aspect("equal", adjustable="box")
 plt.legend()
 plt.title("Vanilla GD vs Momentum on Quadratic")
 plt.xlabel("x"); plt.ylabel("y")
-plt.savefig("figures/momentum_vs_gd.png", dpi=160, bbox_inches="tight")
+plt.savefig("figures/momentum_vs_gd.png", dpi=160, bbox_inches="tight", pad_inches=0.2)
+plt.show()

@@ -14,13 +14,15 @@ ZZ = (XX - 2.0)**2 + (0.5*YY + 1.0)**2
 # Run GD
 _, path, losses = gd(f, grad, x0=[-3, 3], lr=0.3, steps=200)
 
-# Plot contour + path
-plt.figure()
+# Contour + path (square canvas, equal aspect)
+plt.figure(figsize=(6, 6))
 plt.contour(XX, YY, ZZ, levels=30)
 plt.plot(path[:, 0], path[:, 1], marker='o', linewidth=1)
+plt.xlim(xs.min(), xs.max()); plt.ylim(ys.min(), ys.max())
+plt.gca().set_aspect("equal", adjustable="box")
 plt.title("Gradient Descent Path on Quadratic Loss")
 plt.xlabel("x"); plt.ylabel("y")
-plt.savefig("figures/quadratic_gd_path.png", dpi=160, bbox_inches="tight")
+plt.savefig("figures/quadratic_gd_path.png", dpi=160, bbox_inches="tight", pad_inches=0.2)
 plt.show()
 
 # Loss vs iteration
